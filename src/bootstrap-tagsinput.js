@@ -12,7 +12,7 @@
       return this.itemValue(item);
     },
     freeInputItem : function(item) {
-    	return { tag: item };
+    	return item ? { tag: item } : item;
     },
     freeInput: true,
     addOnBlur: true,
