@@ -11,6 +11,9 @@
     itemText: function(item) {
       return this.itemValue(item);
     },
+    freeInputItem : function(item) {
+    	return { tag: item };
+    },
     freeInput: true,
     addOnBlur: true,
     maxTags: undefined,
@@ -256,11 +259,9 @@
       var self = this;
 
       self.options = $.extend({}, defaultOptions, options);
-      // When itemValue is set, freeInput should always be false
-      if (self.objectItems)
-        self.options.freeInput = false;
 
       makeOptionItemFunction(self.options, 'itemValue');
+      makeOptionFunction(self.options, 'freeInputItem');
       makeOptionItemFunction(self.options, 'itemText');
       makeOptionFunction(self.options, 'tagClass');
       
@@ -340,7 +341,11 @@
               // HACK: only process on focusout when no typeahead opened, to
               //       avoid adding the typeahead text as tag
               if ($('.typeahead, .twitter-typeahead', self.$container).length === 0) {
-                self.add(self.$input.val());
+              	var val = self.$input.val()
+              	if(self.options.trimValue) {
+              		val = $.trim(val);
+              	}
+                self.add(freeInputItem(val));
                 self.$input.val('');
               }
           }, self));
@@ -417,7 +422,11 @@
          var text = $input.val(),
          maxLengthReached = self.options.maxChars && text.length >= self.options.maxChars;
          if (self.options.freeInput && (keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
-            self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
+            var val = maxLengthReached ? text.substr(0, self.options.maxChars) : text
+			if(self.options.trimValue) {
+				val = $.trim(val);
+			}
+            self.add(freeInputItem(val));
             $input.val('');
             event.preventDefault();
          }

@@ -11,6 +11,9 @@
     itemText: function(item) {
       return this.itemValue(item);
     },
+    freeInputItem : function(item) {
+    	return { tag: item };
+    },
     freeInput: true,
     addOnBlur: true,
     maxTags: undefined,
@@ -95,6 +98,14 @@
         }
       }
 
+      // raise beforeItemAdd arg
+      var beforeItemAddEvent = $.Event('beforeItemAdd', { item: item, cancel: false });
+      self.$element.trigger(beforeItemAddEvent);
+      if (beforeItemAddEvent.cancel)
+        return;
+
+      item = beforeItemAddEvent.item
+
       var itemValue = self.options.itemValue(item),
           itemText = self.options.itemText(item),
           tagClass = self.options.tagClass(item);
@@ -112,12 +123,6 @@
 
       // if length greater than limit
       if (self.items().toString().length + item.length + 1 > self.options.maxInputLength)
-        return;
-
-      // raise beforeItemAdd arg
-      var beforeItemAddEvent = $.Event('beforeItemAdd', { item: item, cancel: false });
-      self.$element.trigger(beforeItemAddEvent);
-      if (beforeItemAddEvent.cancel)
         return;
 
       // register item in internal array and map
@@ -254,11 +259,9 @@
       var self = this;
 
       self.options = $.extend({}, defaultOptions, options);
-      // When itemValue is set, freeInput should always be false
-      if (self.objectItems)
-        self.options.freeInput = false;
 
       makeOptionItemFunction(self.options, 'itemValue');
+      makeOptionFunction(self.options, 'freeInputItem');
       makeOptionItemFunction(self.options, 'itemText');
       makeOptionFunction(self.options, 'tagClass');
       
@@ -338,7 +341,11 @@
               // HACK: only process on focusout when no typeahead opened, to
               //       avoid adding the typeahead text as tag
               if ($('.typeahead, .twitter-typeahead', self.$container).length === 0) {
-                self.add(self.$input.val());
+              	var val = self.$input.val()
+              	if(self.options.trimValue) {
+              		val = $.trim(val);
+              	}
+                self.add(freeInputItem(val));
                 self.$input.val('');
               }
           }, self));
@@ -415,7 +422,11 @@
          var text = $input.val(),
          maxLengthReached = self.options.maxChars && text.length >= self.options.maxChars;
          if (self.options.freeInput && (keyCombinationInList(event, self.options.confirmKeys) || maxLengthReached)) {
-            self.add(maxLengthReached ? text.substr(0, self.options.maxChars) : text);
+            var val = maxLengthReached ? text.substr(0, self.options.maxChars) : text
+			if(self.options.trimValue) {
+				val = $.trim(val);
+			}
+            self.add(freeInputItem(val));
             $input.val('');
             event.preventDefault();
          }
