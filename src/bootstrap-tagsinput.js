@@ -161,7 +161,7 @@
 
       if (self.objectItems) {
         if (typeof item === "object")
-          item = $.grep(self.itemsArray, function(other) { return self.options.itemValue(other) ==  self.options.itemValue(item); } );
+          item = $.grep(self.itemsArray, function(other) { return other === item; } );
         else
           item = $.grep(self.itemsArray, function(other) { return self.options.itemValue(other) ==  item; } );
 
