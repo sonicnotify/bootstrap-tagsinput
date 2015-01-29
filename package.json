@@ -8,7 +8,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git://github.com/timschlechter/bootstrap-tagsinput.git"
+    "url": "git@github.com:sonicnotify/bootstrap-tagsinput.git"
   },
   "author": "Tim Schlechter",
   "license": "MIT",
