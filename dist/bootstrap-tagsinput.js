@@ -345,7 +345,7 @@
               	if(self.options.trimValue) {
               		val = $.trim(val);
               	}
-                self.add(freeInputItem(val));
+                self.add(self.options.freeInputItem(val));
                 self.$input.val('');
               }
           }, self));
@@ -426,7 +426,7 @@
 			if(self.options.trimValue) {
 				val = $.trim(val);
 			}
-            self.add(freeInputItem(val));
+            self.add(self.options.freeInputItem(val));
             $input.val('');
             event.preventDefault();
          }
