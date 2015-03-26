@@ -1,5 +1,5 @@
 {
-  "name": "bootstrap-tagsinput-sn",
+  "name": "bootstrap-tagsinput",
   "title": "Bootstrap Tags Input",
   "version": "master",
   "description": "jQuery plugin providing a Twitter Bootstrap user interface for managing tags.",
@@ -8,12 +8,11 @@
   },
   "repository": {
     "type": "git",
-    "url": "git@github.com:sonicnotify/bootstrap-tagsinput.git"
+    "url": "https://github.com/sonicnotify/bootstrap-tagsinput.git"
   },
   "author": "Tim Schlechter",
   "license": "MIT",
-  "homepage": "http://timschlechter.github.io/bootstrap-tagsinput/examples/",
-  "download": "http://timschlechter.github.io/bootstrap-tagsinput/build/bootstrap-tagsinput.zip",
+  "homepage": "https://github.com/sonicnotify/bootstrap-tagsinput.git",
   "keywords": [
     "tags",
     "bootstrap",
