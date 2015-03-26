@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-tagsinput",
-  "version": "0.4.2",
-  "homepage": "https://github.com/TimSchlechter/bootstrap-tagsinput",
+  "version": "master",
+  "homepage": "https://github.com/sonicnotify/bootstrap-tagsinput",
   "authors": [
     "Tim Schlechter"
   ],
