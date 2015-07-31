@@ -324,9 +324,9 @@
           
           self.$input.typeahead(null, typeaheadjs).on('typeahead:selected', $.proxy(function (obj, datum) {
             if (typeaheadjs.valueKey)
-              self.add($.extend(true,{},datum[typeaheadjs.valueKey]));
+              self.add(typeof(datum[typeaheadjs.valueKey]) == 'object' ? $.extend(false,{},datum[typeaheadjs.valueKey]) : datum[typeaheadjs.valueKey]);
             else
-              self.add($.extend(true,{},datum));
+              self.add(typeof(datum) == 'object' ? $.extend(false,{},datum) : datum);
             self.$input.typeahead('val', '');
           }, self));
       }
